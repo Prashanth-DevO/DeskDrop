@@ -1,0 +1,65 @@
+# ==========================================
+# .NET / Visual Studio Build Outputs
+# ==========================================
+[Dd]ebug/
+[Rr]elease/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+x64/
+x86/
+**/[Bb]in/
+**/[Oo]bj/
+
+# ==========================================
+# Avalonia UI / Mobile / Web Target Specifics
+# ==========================================
+# Android build artifacts (if using Avalonia Android)
+.gradle/
+build/
+*.apk
+*.aab
+local.properties
+
+# iOS / macOS build artifacts
+Artifacts/
+build-intermediate/
+obj-Direct2D1/
+obj-Skia/
+
+# Avalonia WebAssembly/Blazor generated scripts
+src/Web/Avalonia.Web.Blazor/wwwroot/*.js
+src/Web/Avalonia.Web.Blazor/Interop/Typescript/*.js
+
+# ==========================================
+# IDEs & Editor User Settings
+# ==========================================
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln.docstates
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# ==========================================
+# NuGet & Dependencies
+# ==========================================
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+
+# ==========================================
+# OS-Specific Files
+# ==========================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
