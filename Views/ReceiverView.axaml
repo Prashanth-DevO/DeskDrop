@@ -1,0 +1,334 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AvaloniaFileTransfer.Views.ReceiverView"
+        Title="Receive Files"
+        Width="700"
+        Height="640"
+        MinWidth="640"
+        MinHeight="550"
+        WindowStartupLocation="CenterOwner"
+        Background="#F0F3F6">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- HEADER -->
+        <Border Grid.Row="0"
+                Background="#F7F9FB"
+                BorderBrush="#D3DAE2"
+                BorderThickness="0,0,0,1"
+                Padding="16,12">
+            <Grid ColumnDefinitions="*,Auto,*">
+                <Button Content="← Back"
+                        Grid.Column="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#222222"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Cursor="Hand"
+                        Click="Back_Click"/>
+
+                <TextBlock Grid.Column="1"
+                           Text="Receive Files"
+                           FontSize="21"
+                           FontWeight="SemiBold"
+                           Foreground="#111111"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- MAIN CONTENT -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="28,16,28,20"
+                        Spacing="16">
+
+                <!-- 1. RECEIVER CONFIGURATION -->
+                <TextBlock Text="1. RECEIVER CONFIGURATION"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#171717"/>
+
+                <Border Background="#FFFFFF"
+                        BorderBrush="#D3DAE2"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        Padding="16">
+                    <StackPanel Spacing="14">
+
+                        <!-- IP and Port in 2 columns -->
+                        <Grid ColumnDefinitions="*,*"
+                              ColumnSpacing="14">
+
+                            <!-- Local IP Display -->
+                            <StackPanel Grid.Column="0"
+                                        Spacing="5">
+                                <TextBlock Text="Your Local IP Address"
+                                           FontSize="13"
+                                           FontWeight="Medium"
+                                           Foreground="#222222"/>
+
+                                <Grid ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="6">
+                                    <TextBox x:Name="LocalIpTextBox"
+                                             FontSize="14"
+                                             FontWeight="SemiBold"
+                                             Padding="8,6"
+                                             IsReadOnly="True"
+                                             Background="#F8FAFC"
+                                             BorderBrush="#C6CED6"
+                                             CornerRadius="4"/>
+
+                                    <Button Grid.Column="1"
+                                            x:Name="CopyIpButton"
+                                            Content="[ Copy ]"
+                                            Background="#E2E8F0"
+                                            Foreground="#1E293B"
+                                            BorderBrush="#CBD5E1"
+                                            BorderThickness="1"
+                                            CornerRadius="4"
+                                            Padding="10,6"
+                                            FontSize="13"
+                                            Cursor="Hand"
+                                            Click="CopyIp_Click"/>
+                                </Grid>
+
+                                <TextBlock x:Name="CopyFeedbackText"
+                                           Text="Copied to clipboard!"
+                                           FontSize="12"
+                                           Foreground="#15952B"
+                                           IsVisible="False"/>
+                            </StackPanel>
+
+                            <!-- Listening Port -->
+                            <StackPanel Grid.Column="1"
+                                        Spacing="5">
+                                <TextBlock Text="Listening Port (1 - 65535)"
+                                           FontSize="13"
+                                           FontWeight="Medium"
+                                           Foreground="#222222"/>
+
+                                <TextBox x:Name="PortTextBox"
+                                         Text="8080"
+                                         FontSize="14"
+                                         Padding="8,6"
+                                         Background="#FFFFFF"
+                                         BorderBrush="#C6CED6"
+                                         CornerRadius="4"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <!-- Destination Folder -->
+                        <StackPanel Spacing="5">
+                            <TextBlock Text="Save Received Files To"
+                                       FontSize="13"
+                                       FontWeight="Medium"
+                                       Foreground="#222222"/>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="8">
+                                <TextBox x:Name="DestinationPathTextBox"
+                                         FontSize="13"
+                                         Padding="8,6"
+                                         IsReadOnly="True"
+                                         Background="#F8FAFC"
+                                         BorderBrush="#C6CED6"
+                                         CornerRadius="4"/>
+
+                                <Button x:Name="BrowseFolderButton"
+                                        Grid.Column="1"
+                                        Content="[ Change Folder ]"
+                                        Background="#0875C9"
+                                        Foreground="White"
+                                        BorderBrush="#0868B1"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="12,6"
+                                        FontSize="13"
+                                        Cursor="Hand"
+                                        Click="BrowseFolder_Click"/>
+                            </Grid>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- 2. STATUS & CONTROLS -->
+                <TextBlock Text="2. RECEIVER STATUS &amp; CONTROLS"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="#171717"/>
+
+                <Border Background="#FFFFFF"
+                        BorderBrush="#D3DAE2"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        Padding="16">
+                    <StackPanel Spacing="12">
+
+                        <Grid ColumnDefinitions="Auto,*"
+                              ColumnSpacing="8">
+                            <Ellipse x:Name="StatusDot"
+                                     Width="12"
+                                     Height="12"
+                                     Fill="#888888"
+                                     VerticalAlignment="Center"/>
+
+                            <TextBlock x:Name="StatusText"
+                                       Grid.Column="1"
+                                       Text="Status: Idle. Click 'Start Receiving' to listen for incoming files."
+                                       FontSize="14"
+                                       Foreground="#333333"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <!-- Progress Bar -->
+                        <Grid ColumnDefinitions="Auto,*,Auto"
+                              ColumnSpacing="8">
+                            <TextBlock Text="Transfer Progress"
+                                       FontSize="13"
+                                       Foreground="#444444"
+                                       VerticalAlignment="Center"/>
+
+                            <ProgressBar x:Name="ReceiverProgressBar"
+                                         Grid.Column="1"
+                                         Minimum="0"
+                                         Maximum="100"
+                                         Value="0"
+                                         Height="16"
+                                         VerticalAlignment="Center"/>
+
+                            <TextBlock x:Name="ReceiverProgressPercentageText"
+                                       Grid.Column="2"
+                                       Text="0%"
+                                       FontSize="13"
+                                       Foreground="#444444"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+
+                        <!-- Control Buttons -->
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Spacing="12"
+                                    Margin="0,4,0,0">
+
+                            <Button x:Name="StartReceivingButton"
+                                    Content="[ Start Receiving ]"
+                                    Background="#0875C9"
+                                    Foreground="White"
+                                    BorderBrush="#0868B1"
+                                    BorderThickness="1"
+                                    CornerRadius="4"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Padding="16,8"
+                                    Cursor="Hand"
+                                    Click="StartReceiving_Click"/>
+
+                            <Button x:Name="StopReceivingButton"
+                                    Content="[ Stop Receiving ]"
+                                    Background="#D93636"
+                                    Foreground="White"
+                                    BorderBrush="#B82828"
+                                    BorderThickness="1"
+                                    CornerRadius="4"
+                                    FontSize="14"
+                                    FontWeight="SemiBold"
+                                    Padding="16,8"
+                                    Cursor="Hand"
+                                    IsEnabled="False"
+                                    Click="StopReceiving_Click"/>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- 3. INCOMING TRANSFERS -->
+                <Grid ColumnDefinitions="*,Auto"
+                      Margin="0,4,0,-4">
+                    <TextBlock Text="3. INCOMING TRANSFERS"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#171717"
+                               VerticalAlignment="Center"/>
+
+                    <TextBlock x:Name="TransferCountText"
+                               Grid.Column="1"
+                               Text="0 transfers"
+                               FontSize="13"
+                               Foreground="#555555"
+                               VerticalAlignment="Center"/>
+                </Grid>
+
+                <!-- Transfers Container -->
+                <Border Background="#FFFFFF"
+                        BorderBrush="#BCC6D0"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        MinHeight="140">
+                    <StackPanel>
+                        <!-- Table Header -->
+                        <Border Background="#F1F5F9"
+                                BorderBrush="#CBD5E1"
+                                BorderThickness="0,0,0,1"
+                                Padding="12,8">
+                            <Grid ColumnDefinitions="2*,1.5*,*,Auto"
+                                  ColumnSpacing="10">
+                                <TextBlock Text="File Name"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           Foreground="#334155"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="Sender IP"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           Foreground="#334155"/>
+                                <TextBlock Grid.Column="2"
+                                           Text="Size"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           Foreground="#334155"/>
+                                <TextBlock Grid.Column="3"
+                                           Text="Status"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           Foreground="#334155"
+                                           Width="80"
+                                           TextAlignment="Right"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Items List -->
+                        <StackPanel x:Name="IncomingTransfersList"/>
+
+                        <!-- Empty Placeholder -->
+                        <StackPanel x:Name="EmptyTransfersPanel"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="20,32"
+                                    Spacing="6">
+                            <TextBlock Text="📥"
+                                       FontSize="28"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="No incoming transfers yet."
+                                       FontSize="14"
+                                       Foreground="#64748B"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="When another device sends files to your IP, they will be listed here."
+                                       FontSize="12"
+                                       Foreground="#94A3B8"
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

@@ -1,22 +1,243 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:AvaloniaFileTransfer.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaFileTransfer.Views.MainWindow"
-        x:DataType="vm:MainViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="AvaloniaFileTransfer">
+        Title="Offline File Transfer"
+        Width="1000"
+        Height="550">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainViewModel />
-    </Design.DataContext>
+   <Grid RowDefinitions="76,*,36">
 
-    <TextBox Text="{Binding Greeting}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center" />
+        <!-- ================= HEADER ================= -->
+        <Border Grid.Row="0"
+                Background="#0E69A5"
+                BorderBrush="#640409"
+                BorderThickness="0,0,0,1"
+                Padding="15,0">
+
+            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="20">
+
+                <!-- Application title -->
+                <StackPanel VerticalAlignment="Center"
+                            Spacing="3">
+
+                    <TextBlock Text="FileTransfer"
+                               FontSize="25"
+                               FontWeight="SemiBold"
+                               Foreground="#111820"/>
+
+                </StackPanel>
+
+                <!-- Settings -->
+                
+                <Button Grid.Column="1"
+                        Background="#0066A0EC"
+                        BorderBrush="#00080808"
+                        BorderThickness="2"
+                        Padding="12,8"
+                        VerticalAlignment="Center"
+                        Cursor="Hand"
+                        Click="Settings_Click">
+
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+
+                        <TextBlock Text="Settings"
+                                   FontSize="15"
+                                   Foreground="#00060E"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Text="⚙"
+                                   FontSize="22"
+                                   Foreground="#0B0C0C"
+                                   VerticalAlignment="Center"/>
+
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+        </Border>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="24"
+                        Margin="20,30">
+
+                <!-- Heading -->
+                <StackPanel HorizontalAlignment="Center"
+                            Spacing="5">
+
+                    <TextBlock Text="Transfer Files Across Your Local Network"
+                               FontSize="27"
+                               FontWeight="Bold"
+                               Foreground="#111111"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Send and receive files without internet."
+                               FontSize="18"
+                               Foreground="#252525"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"/>
+
+                </StackPanel>
+
+
+                <!-- Sender and Receiver cards -->
+                <Grid ColumnDefinitions="232,232"
+                      ColumnSpacing="24"
+                      HorizontalAlignment="Center">
+
+                    <!-- ========== SENDER CARD ========== -->
+                    <Border Grid.Column="0"
+                            Background="#FFF5F0F0"
+                            BorderBrush="#D3DAE2"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="18,14">
+
+                        <StackPanel HorizontalAlignment="Center"
+                                    Spacing="7">
+
+                            <!-- Up arrow -->
+                            <TextBlock Text="↑"
+                                       FontSize="62"
+                                       FontWeight="Light"
+                                       Foreground="#000000"
+                                       HorizontalAlignment="Center"
+                                       Height="72"
+                                       VerticalAlignment="Center"/>
+
+                            <!-- Sender title -->
+                            <TextBlock Text="SENDER"
+                                       FontSize="27"
+                                       FontWeight="SemiBold"
+                                       Foreground="#000000"
+                                       HorizontalAlignment="Center"/>
+
+                            <!-- Description -->
+                            <TextBlock Text="Select files and send&#10;to a device"
+                                       FontSize="15"
+                                       Foreground="#222222"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       LineHeight="21"/>
+
+                            <!-- Sender action -->
+                            <Button Content="[ Start Sending ]"
+                                    Background="#0875C9"
+                                    Foreground="White"
+                                    BorderBrush="#0868B1"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Padding="12,7"
+                                    FontSize="15"
+                                    HorizontalAlignment="Center"
+                                    Cursor="Hand"
+                                    Click="OpenSender_Click"/>
+
+                        </StackPanel>
+                    </Border>
+
+
+                    <!-- ========== RECEIVER CARD ========== -->
+                    <Border Grid.Column="1"
+                            Background="#FFFFFF"
+                            BorderBrush="#D3DAE2"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="18,14">
+
+                        <StackPanel HorizontalAlignment="Center"
+                                    Spacing="7">
+
+                            <!-- Down arrow -->
+                            <TextBlock Text="↓"
+                                       FontSize="62"
+                                       FontWeight="Light"
+                                       Foreground="#000000"
+                                       HorizontalAlignment="Center"
+                                       Height="72"
+                                       VerticalAlignment="Center"/>
+
+                            <!-- Receiver title -->
+                            <TextBlock Text="RECEIVER"
+                                       FontSize="27"
+                                       FontWeight="SemiBold"
+                                       Foreground="#000000"
+                                       HorizontalAlignment="Center"/>
+
+                            <!-- Description -->
+                            <TextBlock Text="Receive files from&#10;another device"
+                                       FontSize="15"
+                                       Foreground="#222222"
+                                       TextAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       LineHeight="21"/>
+
+                            <!-- Receiver action -->
+                            <Button Content="[ Start Receiving ]"
+                                    Background="#0875C9"
+                                    Foreground="White"
+                                    BorderBrush="#0868B1"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Padding="12,7"
+                                    FontSize="15"
+                                    HorizontalAlignment="Center"
+                                    Cursor="Hand"
+                                    Click="OpenReceiver_Click"/>
+
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+
+        <!-- ================= FOOTER ================= -->
+        <Border Grid.Row="2"
+                Background="#F0F4F7"
+                BorderBrush="#D8DEE5"
+                BorderThickness="0,1,0,0"
+                Padding="10,0">
+
+            <Grid ColumnDefinitions="*,Auto">
+
+                <!-- Application status -->
+                <StackPanel Orientation="Horizontal"
+                            Spacing="7"
+                            VerticalAlignment="Center">
+
+                    <Ellipse Width="13"
+                             Height="13"
+                             Fill="#15952B"/>
+
+                    <TextBlock Text="Ready"
+                               FontSize="14"
+                               Foreground="#202020"
+                               VerticalAlignment="Center"/>
+
+                </StackPanel>
+
+                <!-- Protocol -->
+                <TextBlock Grid.Column="1"
+                           Text="HTTP · Local LAN"
+                           FontSize="14"
+                           Foreground="#202020"
+                           VerticalAlignment="Center"/>
+
+            </Grid>
+        </Border>
+
+    </Grid>
 
 </Window>
