@@ -1,0 +1,202 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AvaloniaFileTransfer.Views.SettingsView"
+        Title="Settings"
+        Width="540"
+        Height="460"
+        MinWidth="480"
+        MinHeight="400"
+        WindowStartupLocation="CenterOwner"
+        Background="#F0F3F6">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- HEADER -->
+        <Border Grid.Row="0"
+                Background="#F7F9FB"
+                BorderBrush="#D3DAE2"
+                BorderThickness="0,0,0,1"
+                Padding="16,12">
+            <Grid ColumnDefinitions="*,Auto,*">
+                <Button Content="← Back"
+                        Grid.Column="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#222222"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Cursor="Hand"
+                        Click="Cancel_Click"/>
+
+                <TextBlock Grid.Column="1"
+                           Text="Settings"
+                           FontSize="21"
+                           FontWeight="SemiBold"
+                           Foreground="#111111"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- CONTENT -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="28,20,28,16"
+                        Spacing="20">
+
+                <!-- 1. APPEARANCE -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="1. APPEARANCE"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#171717"/>
+
+                    <Border Background="#FFFFFF"
+                            BorderBrush="#D3DAE2"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="16">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Theme Preference"
+                                       FontSize="14"
+                                       FontWeight="Medium"
+                                       Foreground="#222222"/>
+
+                            <ComboBox x:Name="ThemeComboBox"
+                                      HorizontalAlignment="Stretch"
+                                      SelectedIndex="0">
+                                <ComboBoxItem Content="Light Theme"/>
+                                <ComboBoxItem Content="Dark Theme"/>
+                                <ComboBoxItem Content="System Default"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- 2. STORAGE -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="2. DOWNLOADS DIRECTORY"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#171717"/>
+
+                    <Border Background="#FFFFFF"
+                            BorderBrush="#D3DAE2"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="16">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="Default folder for received files"
+                                       FontSize="14"
+                                       FontWeight="Medium"
+                                       Foreground="#222222"/>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="8">
+                                <TextBox x:Name="DownloadPathTextBox"
+                                         FontSize="13"
+                                         Padding="8,6"
+                                         IsReadOnly="True"
+                                         Background="#F8FAFC"
+                                         BorderBrush="#C6CED6"
+                                         CornerRadius="4"/>
+
+                                <Button Grid.Column="1"
+                                        Content="[ Browse ]"
+                                        Background="#0875C9"
+                                        Foreground="White"
+                                        BorderBrush="#0868B1"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="12,6"
+                                        Cursor="Hand"
+                                        Click="BrowseDownloadDir_Click"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- 3. NETWORK -->
+                <StackPanel Spacing="8">
+                    <TextBlock Text="3. DEFAULT PORT"
+                               FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#171717"/>
+
+                    <Border Background="#FFFFFF"
+                            BorderBrush="#D3DAE2"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="16">
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Listening / Transfer Port (1 - 65535)"
+                                       FontSize="14"
+                                       FontWeight="Medium"
+                                       Foreground="#222222"/>
+
+                            <TextBox x:Name="PortTextBox"
+                                     Text="8080"
+                                     FontSize="14"
+                                     Padding="8,6"
+                                     Background="#FFFFFF"
+                                     BorderBrush="#C6CED6"
+                                     CornerRadius="4"/>
+
+                            <TextBlock x:Name="ValidationMessageText"
+                                       Text=""
+                                       FontSize="13"
+                                       Foreground="#D93636"
+                                       IsVisible="False"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- FOOTER ACTIONS -->
+        <Border Grid.Row="2"
+                Background="#F7F9FB"
+                BorderBrush="#D3DAE2"
+                BorderThickness="0,1,0,0"
+                Padding="20,12">
+            <Grid ColumnDefinitions="*,Auto,Auto"
+                  ColumnSpacing="10">
+
+                <TextBlock x:Name="StatusText"
+                           Text=""
+                           FontSize="13"
+                           Foreground="#15952B"
+                           VerticalAlignment="Center"/>
+
+                <Button Grid.Column="1"
+                        Content="Cancel"
+                        Background="#E2E8F0"
+                        Foreground="#1E293B"
+                        BorderBrush="#CBD5E1"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="14,7"
+                        FontSize="14"
+                        Cursor="Hand"
+                        Click="Cancel_Click"/>
+
+                <Button Grid.Column="2"
+                        Content="[ Save Changes ]"
+                        Background="#0875C9"
+                        Foreground="White"
+                        BorderBrush="#0868B1"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Padding="16,7"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Cursor="Hand"
+                        Click="Save_Click"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
